@@ -109,21 +109,18 @@ SELECT AVG(SALARY) AS "D5 부서 평균 급여" FROM EMPLOYEE WHERE DEPT_CODE = 
 --> EMP_ID, EMAIL, AS 수정된 이메일
 SELECT EMP_ID, EMAIL, REPLACE(EMAIL,'.','-') AS "수정된 이메일" FROM EMPLOYEE;
 
--- 2. 주민번호에서 모든 - 을 빈 문자열로 ' ' 대체
+-- 2. 주민번호에서 모든 - 을 빈 문자열로 '' 대체
 --> EMP_NAME, EMP_NO, AS 수정된 주민번호
-SELECT EMP_NAME, EMP_NO, REPLACE(EMP_NO,'-',' ') AS "수정된 주민번호" FROM EMPLOYEE;
+SELECT EMP_NAME, EMP_NO, REPLACE(EMP_NO,'-','') AS "수정된 주민번호" FROM EMPLOYEE;
 
--- 3. 이름에서 김을 킴을 대체
+-- 3. 이름에서 김을 KIM 으로 대체
 --> EMP_NAME, AS 수정된 이름
-SELECT EMP_NAME, REPLACE(EMP_NAME,'김','킴') AS "수정된 이름" FROM EMPLOYEE;
+SELECT EMP_NAME, REPLACE(EMP_NAME,'김','KIM') AS "수정된 이름" FROM EMPLOYEE;
 
 -- 4. 직무코드에서 J 를 JOB 으로 대체
 --> EMP_ID, JOB_CODE, 수정된 직무코드
 SELECT EMP_ID, JOB_CODE, REPLACE(JOB_CODE,'J','JOB') AS "수정된 직무코드" FROM EMPLOYEE;
 
-
-
-KK
 
 
 
