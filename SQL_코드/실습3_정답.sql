@@ -1,0 +1,85 @@
+CREATE TABLE EMPLOYEE2 AS SELECT * FROM EMPLOYEE;
+CREATE TABLE DEPARTMENT2 AS SELECT * FROM DEPARTMENT;
+
+INSERT INTO EMPLOYEE2 VALUES (223,'김영수','850101-1234567', 'kim_ys@or.kr','01012345678','D1', 'J4', 'S2',3500000, 0.1,'200', '15/06/20',NULL,'N');
+-- INSERT INTO EMPLOYEE2 (EMP_ID, EMP_NAME, ... , ENT_YN) VALUES (223,'김영수', ... 'N');  - ENT_DATE 의 정보가 없어 이렇게 작성해도 됨, 하지만 NULL 값을 넣어도 됨 
+-- TO_DATE('2015-06-20','YYYY-MM-DD') = '15/06/20' 를 적는 방법
+
+INSERT INTO DEPARTMENT2 VALUES ('D10','연구개발부','L6');
+-- DEPT_ID 컬럼의 최대 크기가 2BYTE 로 두 글자 까지만 작성할 수 있음
+-- 하지만 세 글자를 작성하려 했으므로 에러가 발생
+-- 해당 테이블에가서 DEPT_ID 의 크기인 2BYTE 를 그 이상으로 올리면 문제해결 완료 
+-- 혹은 VARCHAR2 로 변경해서 255 까지 늘려주는 방법도 존재 -> VARCHAR2 : 알아서 공간크기 조절, CHAR : 공간 크기 조정 불가
+
+INSERT INTO EMPLOYEE2 VALUES( '224','이수진','900101-2345678', 'lee_sj@or.kr','01098765432','D2', 'J2', 'S3',3000000, 0.15,'201','16/07/01', NULL, 'N');
+
+INSERT INTO DEPARTMENT2 VALUES ('D11', '품질관리부', 'L7');
+
+INSERT INTO EMPLOYEE2 VALUES( '225', '박민수', '750303-3456789', 'park_ms@or.kr', '01123456789', 'D3', 'J5', 'S1', 2800000,  0.05,  '202',   '17/08/15',  NULL, 'N');
+
+INSERT INTO DEPARTMENT2 VALUES('D12','재무부', 'L8');
+
+INSERT INTO EMPLOYEE2 VALUES( '226',  '최은지','860404-4567890', 'choi_ej@or.kr', '01056789012', 'D4',  'J3', 'S4', 4200000, 0.2, '203', '18/09/25', NULL,'N');
+
+INSERT INTO DEPARTMENT2 VALUES('D13',  '홍보부', 'L9');
+
+INSERT INTO EMPLOYEE2 VALUES( '227','장영호', '950505-5678901',  'jang_yh@or.kr', '01067890123', 'D5', 'J1',  'S5',  5000000,  0.25,  '204',  '19/10/30',NULL,'N' );
+
+INSERT INTO DEPARTMENT2 VALUES( 'D14', '전략기획부','L10');
+
+INSERT INTO EMPLOYEE2 VALUES( '228','윤지혜', '760606-6789012',  'yoon_jh@or.kr',  '01734567890', 'D6','J2','S2', 3200000, 0.1,'205',  '20/11/05', NULL,'N');
+
+INSERT INTO DEPARTMENT2 VALUES('D15','법무부', 'L11');
+
+INSERT INTO EMPLOYEE2 VALUES('229', '김도현','830707-7890123',  'kim_dh@or.kr', '01078901234',  'D7', 'J4', 'S3',3600000, 0.15,'206','21/12/10',NULL,'N');
+
+INSERT INTO DEPARTMENT2 VALUES( 'D16',  '고객지원부', 'L12');
+
+
+------14 ㄲㅈ ㅎ---
+
+
+UPDATE EMPLOYEE2 SET EMAIL = 'sun_di_updated@or.kr', PHONE = '01012345678' WHERE EMP_ID = 200; -- 업데이트하기
+
+SELECT * FROM EMPLOYEE2 WHERE DEPT_CODE = 'D1'; -- 찾기
+UPDATE EMPLOYEE2 SET SALARY = SALARY * 1.1, BONUS = BONUS + 0.05 WHERE DEPT_CODE = 'D1'; -- 업데이트하기
+
+UPDATE EMPLOYEE2 SET JOB_CODE = 'J5', DEPT_CODE = 'D3' WHERE JOB_CODE = 'J2';
+
+UPDATE EMPLOYEE2 SET SALARY = SALARY * 1.05, BONUS = BONUS + 0.02 WHERE HIRE_DATE > TO_DATE('2001-01-01','YYYY-MM-DD'); -- ?? 
+
+-- 4 ㄲㅈ ㅎ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
