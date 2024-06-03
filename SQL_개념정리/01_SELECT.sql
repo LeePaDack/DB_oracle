@@ -365,6 +365,147 @@ SELECT EMP_NAME || '-' || SALARY * 12 AS "이름 - 연봉"
 FROM EMPLOYEE;
 
 
+/****** ORDER BY 절 *******/
+/*
+SELECT 문의 조회 결과(RESULT SET)를 정렬할 때 사용하는 구문
+
+**** SELECT 구문에서 제일 마지막에 해석됨 ****
+
+[작성법]
+SELECT 컬럼명, 컬럼명 AS "별칭", 컬럼명, ...
+FROM 테이블명
+WHERE 조건식
+ORDER BY 컬럼명 | 별칭 | 컬럼순서 [오름차순/내림차순]
+
+컬럼 순서의 기본 값은 오름차순
+오름차순 : ASC (ASCENDING)
+내림차순 : DESC (DESCENDING)
+
+-- EMPLOYEE 테이블에서 모든 사원의 이름, 급여 조회
+-- 급여는 오름차순으로 정렬
+SELECT EMP_NAME, SALARY
+FROM EMPLOYEE
+ORDER BY SALARY ASC;
+
+-- EMPLOYEE 테이블에서 모든 사원의 이름, 급여 조회
+-- 급여는 내림차순 정렬
+SELECT EMP_NAME, SALARY
+FROM EMPLOYEE
+ORDER BY SALARY DESC;
+*/
+
+-- EMPLOYEE 테이블에서 부서 코드가 D5, D6, D9 인 사원의 
+-- 사번 이름 부서코드를 부서코드 오름차순으로 조회
+SELECT EMP_ID, EMP_NAME, DEPT_CODE FROM EMPLOYEE WHERE DEPT_CODE IN ('D5','D6','D9') ORDER BY DEPT_CODE; -- ASC 기본값이므로 생략가능
+
+/* 컬럼 순서를 이용해서 정렬 방법 */
+-- EMPLOYEE 테이블에서
+-- 급여가 300 만원 이상, 600 만원 이하인 사원의
+-- 사번 이름 급여를 이름 내림차순으로 조회
+SELECT EMP_ID, EMP_NAME, SALARY FROM EMPLOYEE WHERE SALARY BETWEEN 3000000 AND 6000000 ORDER BY EMP_NAME DESC;
+
+-- EMP_NAME : 현재 2 번째
+-- 자리에 위치하는 순서를 이용해 ORDER BY 를 구할 수 있음
+SELECT EMP_ID, EMP_NAME, SALARY 
+FROM EMPLOYEE 
+WHERE SALARY BETWEEN 3000000 AND 6000000 
+ORDER BY 2 DESC;
+-- 만약 EMP_ID 로 정렬을 원하면 1 을 작성하면 됨
+
+-- ORDER BY 절에 수식 적용 -- 
+-- EMPLOYEE 테이블에서 이름, 연봉을 연봉 내림사춘 소회
+SELECT EMP_NAME, SALARY * 12 AS "연봉"
+FROM EMPLOYEE
+ORDER BY SALARY * 12 DESC;
+
+-- *** ORDER BY 로 정렬을 진행할 경우에는 
+-- *** SELECT 절에 작성된 컬럼을 그대로 따라 작성한 경우가 많음 **--
+
+/* ORDER BY 절에서 별칭 사용하기 */
+--> SELECT 절 해석 이후 ORDER BY 절이 해석되기 때문에
+-- SELECT 절에서 해석된 별칭을 ORDER BY 절에서 사용할 수 있음
+
+-- EMPLOYEE 테이블에서 이름, 연봉 연봉을 내림차순으로 조회
+SELECT EMP_NAME, SALARY * 12 AS "연봉"
+FROM EMPLOYEE
+ORDER BY 연봉 DESC; -- SALARY * 12 대신 연봉을 작성할 수 있음
+-- 주의할 점 : ORDER BY 에서는 별칭 사용이 가능하지만
+-- WHERE 절의 경우 조건이기 때문에 별칭 사용이 불가능
+-- ORDER BY 는 결과를 가지고 결과 정리를 하는 표현법
+-- WHERE 은 결과를 나타내기 위해 찾는 조건이기 때문
+-- - 조건이 진행도 되지 않았는데 별칭부터 붙인 것이기 때문
+
+
+/* 정렬 중첩 */
+
+-- 먼저 작성된 정렬 기준을 깨지 않고 
+-- 다음 작성된 정렬 기준을 적용
+-- 각각 다른 정렬이 된 것
+/*
+EMPLOYEE 테이블에서 이름, 부서코드, 급여를
+부서코드 오름차순 급여 내림차순 조회
+정렬해서 부서코드 어떻게 되어있고 급여 가장 높은 금액만 궁금한 것
+누가 높게 받냐는 궁금x
+*/
+SELECT EMP_NAME, DEPT_CODE, SALARY
+FROM EMPLOYEE
+ORDER BY DEPT_CODE, SALARY DESC;
+
+-- EMPLOYEE 테이블에서 
+-- 이름 부서코드 직급코드를 
+-- 부서코드 오름차순 직금코트 내림차순 이름 오름차순 조회
+SELECT EMP_NAME AS "이름", DEPT_CODE AS "부서코드", JOB_CODE AS "직급코드"
+FROM EMPLOYEE
+ORDER BY 부서코드 ASC, 직급코드 DESC, 이름; -- 이름 자동으로 오름차순
+
+/*
+부서코드 1번 정렬
+제일 먼저 부서코드가 오름차순으로 정렬이 됨 (D1 D2 D5 D6 D8 D9 NULL 순서)
+
+그 후 동일한 부서코드 내에서 직급코드가 내림차순 정렬
+D1 의 부서의 경우 내림차순이기 때문에 J7 보다 J6 이 먼저 정렬
+
+그 후 동일한 부서코드와 직급코드 내에서 이름이 오름차순으로 정렬
+D1 부서에서는 직급코드 J7이 J6 보다 먼저 정렬, 그리고 이름을 J7 중 오름차순으로 정렬
+J6 는 두명이기 때문에 오름차순으로 전지연이 차태연보다 먼저 정렬
+*/
+-- 위에서 작성한 ORDER BY 순으로 컬럼을 보기 원한다면 아래와 같이 작성
+SELECT DEPT_CODE AS "부서코드", JOB_CODE AS "직급코드", EMP_NAME AS "이름"
+FROM EMPLOYEE 
+ORDER BY 부서코드 ASC, 직급코드 DESC, 이름 ASC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
