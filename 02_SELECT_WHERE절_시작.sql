@@ -128,16 +128,84 @@ SELECT EMP_NAME, HIRE_DATE AS "입사일" FROM EMPLOYEE WHERE HIRE_DATE BETWEEN 
 -- 입사일이 2000 년 이후 입사한 직원의 이름과 입사일 조회
 SELECT EMP_NAME, HIRE_DATE FROM EMPLOYEE WHERE HIRE_DATE > TO_DATE('2000','YYYY'); 
 
+-- EMPLOYEE 테이블에서 DEPT_CODE 가 없는 사원 조회
+SELECT * FROM EMPLOYEE WHERE DEPT_CODE is NULL;
+
+--EMPLOYEE 테이블에서 DEPT_CODE 가 있는 사원 조회
+SELECT * FROM EMPLOYEE WHERE DEPT_CODE IS NOT NULL;
+
+
+-- 특정 전화번호 패턴을 가진 사원의 이름과 전화번호 조회
+SELECT EMP_NAME, PHONE FROM EMPLOYEE WHERE PHONE like '010%';
+
+-- 이메일의 아이디의 글자 수가 5글자인 사원의
+-- 이름 이메일 조회 5글자@
+-- EMPLOYEE
+SELECT EMP_NAME, EMAIL FROM EMPLOYEE WHERE EMAIL LIKE '_____@%';
 
 
 
+-- 이메일의 아이디 중 _앞 쪽의 글자 수가 3 글자인 사원의
+-- 사번 이름 이메일 조회
+-- EMPLOYEE
+SELECT EMP_ID, EMP_NAME, EMAIL FROM EMPLOYEE WHERE EMAIL LIKE '___%';
+
+-- EXCAPE 옵션 : LIKE 의미를 벗어나 단순 문자열로 인식
+--> 적용범위 : 특수문자 뒤 한 글자
+SELECT EMP_ID, EMP_NAME, EMAIL FROM EMPLOYEE WHERE EMAIL LIKE '___#_%' ESCAPE '#';
+
+/*
+___ 세글자 의미
+
+ESCAPE '#' : 구분을 지을 것이다.
+___ LIKE 에서 사용하는 3 글자만 찾으라는 의미로 구분짓는 것
+_% -> _로 된 글자 찾기
+
+___#_%  ___@%
+_ 를 @ 처럼 사용하길 원했기 때문에 중간에 # 넣어준 것
+
+___#_%  __돈%
+_ 를 돈 처럼 사용하길 원했기 때문에 중간에 # 넣어준 것
+
+*/
+
+-- EMPLOYEE 테이블
+
+-- 1. EMP_NAME 을 "이름", SALARY 를 "급여"로 표시하여 선택
+SELECT EMP_NAME AS "이름", SALARY AS "급여" FROM EMPLOYEE;
+-- 2. DEPT_CODE 를 "부서코드" 로, JOB_CODE 를 "직무코드" 로 표시하여 선택
+SELECT DEPT_CODE AS "부서코드", JOB_CODE AS "직무코드" FROM EMPLOYEE;
+-- 3. EMAIL 을 "이메일", PHONE 을 "전화번호" 로 표시하여 선택
+SELECT EMAIL AS "이메일", PHONE AS "전화번호" FROM EMPLOYEE;
+-- 4. EMP_ID 를 "사원ID", HIRE_DATE 를 "입사일" 로 표시하여 선택
+SELECT EMP_ID AS "사원ID", HIRE_DATE AS "입사일" FROM EMPLOYEE;
+-- 5. EMP_NAME, DEPT_CODE, SALARY 를 각각 "이름", "부서", "급여" 로 표시하여 선택
+SELECT EMP_NAME AS "이름", DEPT_CODE AS "부서", SALARY AS "급여" FROM EMPLOYEE;
+-- 6. 중복되지 않은 DEPT_CODE 를 선택
+SELECT DISTINCT DEPT_CODE FROM EMPLOYEE;
+-- 7. 중복되지 않은 JOB_CODE 를 선택
+SELECT DISTINCT JOB_CODE FROM EMPLOYEE;
+-- 8. 중복되지 않은 SAL_LEVEL 을 선택
+SELECT DISTINCT SAL_LEVEL FROM EMPLOYEE;
+-- 9. 죽복되지 않은 MANAGER_ID 를 선택
+SELECT DISTINCT MANAGER_ID FROM EMPLOYEE;
+-- 10. 중복되지 않은 EMP_NAME 을 선택
+SELECT DISTINCT EMP_NAME FROM EMPLOYEE;
 
 
+-- OR 
 
+-- DEPT_CODE 가 D5 이거나 SALARY 가 2000000 보다 큰 사원의 이름과 급여 선택
+SELECT EMP_NAME, SALARY FROM EMPLOYEE WHERE DEPT_CODE = 'D5' OR SALARY > 2000000;
 
+-- DEPT_CODE 가 D6 이거나 JOB_CODE 가 J3 인 사원의 이름과 급여 선택
+SELECT EMP_NAME, SALARY FROM EMPLOYEE WHERE dept_code = 'D6' OR job_code = 'J3';
 
+-- SAL_LEVEL 이 S5 이거나 BONUS 가 0.2 인 사원의 이름과 급여수준 선택
+SELECT EMP_NAME, SAL_LEVEL FROM EMPLOYEE WHERE SAL_LEVEL = 'S5' OR BONUS = '0.2';
 
-
+-- ENT_YN 가 N 이거나 HIRE_DATE 가 2000 년 이후인 사원의 이름과 입사일 선택
+SELECT EMP_NAME, HIRE_DATE FROM EMPLOYEE WHERE ENT_YN = 'N' OR HIRE_DATE > TO_DATE('2000','YYYY');
 
 
 

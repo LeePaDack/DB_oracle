@@ -71,8 +71,47 @@ AND E.SAL_LEVEL = (SELECT SAL_LEVEL FROM EMPLOYEE WHERE EMP_NO LIKE '77%_____2%'
 -- 사번, 이름, 부서명(NULL이면 '소속없음'), 직급명, 입사일을 조회하고
 -- 입사일이 빠른 순으로 조회하시오
 -- 단, 퇴사한 직원은 제외하고 조회..
+SELECT E.EMP_ID, E.EMP_NAME, E.DEPT_CODE, D.DEPT_TITLE, E.HIRE_DATE
+FROM EMPLOYEE E
+JOIN DEPARTMENT D 
 
 -- 7. 직급별 나이가 가장 어린 직원의
 -- 사번, 이름, 직급명, 나이, 보너스 포함 연봉을 조회하고
 -- 나이순으로 내림차순 정렬하세요
 -- 단 연봉은 \124,800,000 으로 출력되게 하세요. (\ : 원 단위 기호)
+
+
+
+
+
+
+
+
+CREATE TABLE user(
+    USERID NUMBER NOT NULL,
+    NAME VARCHAR2(50) NOT NULL,
+    EMAIL VARCHAR2(100) NOT NULL,
+    PASSWORD VARCHAR2(100) NOT NULL,
+    CREATEDDATE DATE DEFAULT SYSDATE
+);
+        
+CREATE SEQUENCE SEQ_user;
+
+INSERT INTO user VALUES(SQE_user.NEXTVAL ,'홍길동','hong@example.com','password123');
+INSERT INTO user VALUES(SQE_user.NEXTVAL ,'김철수','kim@example.com','mypassword');
+INSERT INTO user VALUES(SQE_user.NEXTVAL ,'이영희','lee@example.com','securepass');
+    
+    
+CREATE TABLE board(
+    POSTID NUMBER NOT NULL,
+    USERID NUMBER NOT NULL,
+    TITLE VARCHAR2(200) NOT NULL,
+    CONTENT CLOB NOT NULL,
+    CREATEDDATE DATE DEFAULT SYSDATE
+);
+    
+CREATE SEQUENCE SEQ_board;
+
+INSERT INTO board VALUES(SQE_board.NEXTVAL,'첫 번째 게시물','이것은 첫 번째 게시물의 내용입니다.');
+INSERT INTO board VALUES(SQE_board.NEXTVAL,'두 번째 게시물','이것은 두 번째 게시물의 내용입니다.');    
+INSERT INTO board VALUES(SQE_board.NEXTVAL,'세 번째 게시물','이것은 세 번째 게시물의 내용입니다.');
